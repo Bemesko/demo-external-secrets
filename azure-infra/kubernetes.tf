@@ -1,15 +1,3 @@
-provider "helm" {
-  kubernetes {
-    config_path            = "~/.kube/config"
-    config_context_cluster = "aks-secrets"
-  }
-}
-
-provider "kubectl" {
-  config_path            = "~/.kube/config"
-  config_context_cluster = "aks-secrets"
-}
-
 # Define a variable for the External Secrets operator version
 variable "external_secrets_version" {
   description = "The version of the External Secrets operator"
@@ -43,3 +31,24 @@ resource "helm_release" "external_secrets" {
     value = "true" # couldnt bother to try to handle the crd files
   }
 }
+
+# resource "kubernetes_secret" "example" {
+#   metadata {
+#     name = "basic-auth"
+#   }
+
+#   data = {
+#     username = "admin"
+#     password = "P4ssw0rd"
+#   }
+
+#   type = "kubernetes.io/basic-auth"
+# }
+
+# resource "kubectl_manifest" "external-secret" {
+#   yaml_body = file("yaml/external-secret.yaml")
+# }
+
+# resource "kubectl_manifest" "secret-store" {
+#   yaml_body = file("yaml/secret-store.yaml")
+# }
