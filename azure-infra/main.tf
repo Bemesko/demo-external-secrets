@@ -32,7 +32,7 @@ resource "azurerm_key_vault" "secrets" {
   resource_group_name = azurerm_resource_group.secrets.name
   sku_name            = "standard"
 
-  tenant_id = data.azurerm_client_config.current.tenant_id
+  tenant_id = var.azure_tenant_id
 }
 
 data "azurerm_kubernetes_cluster" "secrets" {

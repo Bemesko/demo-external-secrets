@@ -32,23 +32,11 @@ resource "helm_release" "external_secrets" {
   }
 }
 
-# resource "kubernetes_secret" "example" {
-#   metadata {
-#     name = "basic-auth"
-#   }
+resource "kubectl_manifest" "secret-store" {
+  yaml_body = file("yaml/secret-store.yaml")
+}
 
-#   data = {
-#     username = "admin"
-#     password = "P4ssw0rd"
-#   }
+resource "kubectl_manifest" "external-secret" {
+  yaml_body = file("yaml/external-secret.yaml")
+}
 
-#   type = "kubernetes.io/basic-auth"
-# }
-
-# resource "kubectl_manifest" "external-secret" {
-#   yaml_body = file("yaml/external-secret.yaml")
-# }
-
-# resource "kubectl_manifest" "secret-store" {
-#   yaml_body = file("yaml/secret-store.yaml")
-# }
